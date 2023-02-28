@@ -24,23 +24,31 @@
 </form>
 
 <script>
-function submitExpense() {
-  // Get the form data as an object
-  const formData = {
-    expense: document.getElementById("expense").value,
-    type: document.getElementById("type").value,
-    date: document.getElementById("date").value,
-  };
+  const form = document.getElementById("expense-form");
+  form.addEventListener("submit", event => {
+    event.preventDefault(); // prevent the form from submitting normally
 
-  // Convert the object to a JSON string
-  const jsonPayload = JSON.stringify(formData);
+    const formData = new FormData(form); // get the form data
+    const payload = {}; // create an object to hold the payload data
 
-  // Send the JSON payload to the server
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://automation.quickwork.co/staticwebhook/api/http_app/notify/63e09b4b2b84bb1a82493358/expenses-webhook");
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(jsonPayload);
-}
+    for (const [key, value] of formData.entries()) {
+      payload[key] = value; // add each form field to the payload object
+    }
+
+    const payloadString = JSON.stringify(payload); // convert the payload object to a JSON string
+
+    fetch('https://automation.quickwork.co/staticwebhook/api/http_app/notify/63e09b4b2b84bb1a82493358/expenses-webhook', {
+      method: 'POST',
+      body: payloadString,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      console.log('Success:', response);
+    }).catch(error => {
+      console.error('Error:', error);
+    });
+  });
 </script>
 
 </body>
