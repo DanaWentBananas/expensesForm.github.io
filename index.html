@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-<form id="expense-form">
+<form id="expense-form" action="https://automation.quickwork.co/staticwebhook/api/http_app/notify/63e09b4b2b84bb1a82493358/expenses-webhook">
   <label for="expense">Expense:</label>
   <input type="text" id="expense" name="expense"><br><br>
 
@@ -22,34 +22,5 @@
 
   <input type="button" value="Submit" onclick="submitExpense()">
 </form>
-
-<script>
-  const form = document.getElementById("expense-form");
-  form.addEventListener("submit", event => {
-    event.preventDefault(); // prevent the form from submitting normally
-
-    const formData = new FormData(form); // get the form data
-    const payload = {}; // create an object to hold the payload data
-
-    for (const [key, value] of formData.entries()) {
-      payload[key] = value; // add each form field to the payload object
-    }
-
-    const payloadString = JSON.stringify(payload); // convert the payload object to a JSON string
-
-    fetch('https://automation.quickwork.co/staticwebhook/api/http_app/notify/63e09b4b2b84bb1a82493358/expenses-webhook', {
-      method: 'POST',
-      body: payloadString,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => {
-      console.log('Success:', response);
-    }).catch(error => {
-      console.error('Error:', error);
-    });
-  });
-</script>
-
 </body>
 </html>
