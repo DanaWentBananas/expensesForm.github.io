@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-<form id="expense-form" action="https://automation.quickwork.co/staticwebhook/api/http_app/notify/63e09b4b2b84bb1a82493358/expenses-webhook">
+<form action="https://automation.quickwork.co/staticwebhook/api/http_app/notify/63e09b4b2b84bb1a82493358/expenses-webhook" method="POST">
   <label for="expense">Expense:</label>
   <input type="text" id="expense" name="expense"><br><br>
 
@@ -20,7 +20,8 @@
   <label for="date">Date:</label>
   <input type="date" id="date" name="date"><br><br>
 
-  <input type="button" value="Submit" onclick="submitExpense()">
+  <input type="submit" value="Submit">
 </form>
+
 </body>
 </html>
